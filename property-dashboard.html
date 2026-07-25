@@ -1,0 +1,630 @@
+<title>Property Portfolio Dashboard · 03.07.26</title>
+<style>
+  :root {
+    --page: #f9f9f7;
+    --surface: #fcfcfb;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11, 11, 11, 0.10);
+    --accent: #2a78d6;
+    --good: #0ca30c;
+    --good-text: #006300;
+    --warning: #fab219;
+    --serious: #ec835a;
+    --critical: #d03b3b;
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+    --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+    --ramp-lo: #86b6ef;
+    --ramp-hi: #256abf;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      --page: #0d0d0d;
+      --surface: #1a1a19;
+      --ink: #ffffff;
+      --ink-2: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --baseline: #383835;
+      --border: rgba(255, 255, 255, 0.10);
+      --accent: #3987e5;
+      --good-text: #0ca30c;
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+      --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+      --ramp-lo: #6da7ec;
+      --ramp-hi: #3987e5;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --accent: #3987e5;
+    --good-text: #0ca30c;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --ramp-lo: #6da7ec;
+    --ramp-hi: #3987e5;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 28px; }
+
+  header .eyebrow {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 6px;
+  }
+  header h1 { font-size: 26px; font-weight: 650; margin: 0 0 6px; text-wrap: balance; }
+  header .src { color: var(--ink-2); font-size: 13px; margin: 0; }
+  header .src code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px;
+  }
+
+  .banner {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--warning);
+    border-radius: 8px; padding: 12px 16px; color: var(--ink-2); font-size: 13px;
+  }
+  .banner strong { color: var(--ink); }
+  .banner .ico { flex: none; margin-top: 1px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .tile {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; display: flex; flex-direction: column; gap: 4px;
+  }
+  .tile .lbl { font-size: 12px; color: var(--ink-2); }
+  .tile .val { font-size: 28px; font-weight: 650; letter-spacing: -0.01em; }
+  .tile.hero .val { font-size: 40px; }
+  .tile .sub { font-size: 12px; color: var(--muted); }
+  .tile .delta-up { color: var(--good-text); font-weight: 600; }
+
+  section { display: flex; flex-direction: column; gap: 12px; }
+  .sec-head h2 { font-size: 16px; font-weight: 650; margin: 0; }
+  .sec-head p { margin: 2px 0 0; color: var(--ink-2); font-size: 13px; max-width: 72ch; }
+
+  .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: stretch; }
+  @media (max-width: 860px) { .cards-2 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0;
+  }
+  .card h3 { font-size: 14px; font-weight: 650; margin: 0; }
+  .card .note { font-size: 12px; color: var(--muted); margin: 0; }
+  .chart-box { width: 100%; }
+  .chart-box svg { display: block; width: 100%; height: auto; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--ink-2); }
+  .legend .key { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+
+  details.tbl { font-size: 13px; }
+  details.tbl summary { cursor: pointer; color: var(--ink-2); font-size: 12px; user-select: none; }
+  details.tbl summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  th { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 650; border-bottom: none; }
+  .pos { color: var(--good-text); }
+  .neg { color: var(--ink); }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px;
+    border: 1px solid var(--border); white-space: nowrap;
+  }
+  .chip .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .chip-good .dot { background: var(--good); }
+  .chip-warn .dot { background: var(--serious); }
+  .chip-info .dot { background: var(--baseline); }
+
+  ul.checks { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 13px; display: flex; flex-direction: column; gap: 6px; }
+  ul.checks strong { color: var(--ink); font-weight: 600; }
+
+  #tip {
+    position: fixed; pointer-events: none; z-index: 10; display: none;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; font-size: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.14); max-width: 260px;
+  }
+  #tip .t-title { font-weight: 650; margin-bottom: 3px; }
+  #tip .t-row { display: flex; align-items: center; gap: 6px; justify-content: space-between; }
+  #tip .t-row .k { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); }
+  #tip .t-row .v { font-variant-numeric: tabular-nums; font-weight: 600; }
+  #tip .sw { width: 9px; height: 9px; border-radius: 3px; display: inline-block; flex: none; }
+
+  footer { color: var(--muted); font-size: 12px; border-top: 1px solid var(--grid); padding-top: 16px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Beidi · Investment properties</p>
+    <h1>Property Portfolio Dashboard</h1>
+    <p class="src">Source: <code>A__Property_Overview_Updated 03.07.26.xlsx</code> (Google Drive · 2. Property · Property Overview) — ledger data as at 3 Jul 2026, valuations as at 19 Jan 2026.</p>
+  </header>
+
+  <div class="banner">
+    <svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5 15 14H1L8 1.5Z" fill="none" stroke="var(--serious)" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6v4" stroke="var(--serious)" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="12" r="0.9" fill="var(--serious)"/></svg>
+    <div><strong>Read FY2025–26 figures as provisional.</strong> The spreadsheet's own checklist flags that mortgage and insurance entries stopped being logged around Jan 2025 (Novak, Gardenia, Furness) and rent hasn't been logged since Feb–Mar 2026 — so recent-year cash flow is overstated and rent understated. The 21 Novak Street tab currently has broken formulas (#REF!), so its ledger totals are missing throughout.</div>
+  </div>
+
+  <div class="tiles">
+    <div class="tile hero">
+      <span class="lbl">Portfolio value (est.)</span>
+      <span class="val">$3.89M</span>
+      <span class="sub">3 residential at 19.1.26 valuations + Wacol at purchase price</span>
+    </div>
+    <div class="tile">
+      <span class="lbl">Growth on current holdings</span>
+      <span class="val delta-up">+$1.49M</span>
+      <span class="sub">+93% vs $1.60M purchase (3 residential)</span>
+    </div>
+    <div class="tile">
+      <span class="lbl">Gross rent</span>
+      <span class="val">$157.5K<span style="font-size:16px; font-weight:600; color:var(--ink-2);"> /yr</span></span>
+      <span class="sub">$108,940 residential + $48,600 Wacol net lease</span>
+    </div>
+    <div class="tile">
+      <span class="lbl">Est. debt → equity</span>
+      <span class="val">$2.03M</span>
+      <span class="sub">→ ≈ $1.86M equity · Novak balance estimated at $660K</span>
+    </div>
+    <div class="tile">
+      <span class="lbl">Properties</span>
+      <span class="val">4</span>
+      <span class="sub">current · 3 transferred to Mat · 2 sold</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <h2>Current portfolio</h2>
+      <p>The four properties held after the split with Mat: three residential plus the Wacol commercial unit settled in February 2026.</p>
+    </div>
+    <div class="cards-2">
+      <div class="card">
+        <h3>Purchase price vs current value</h3>
+        <div class="legend" id="lgA"></div>
+        <div class="chart-box" id="chartA"></div>
+        <p class="note">Wacol settled 19 Feb 2026 and has no valuation yet — purchase price only.</p>
+        <details class="tbl"><summary>View data</summary><div class="scroll"><table>
+          <thead><tr><th>Property</th><th class="num">Purchase</th><th class="num">Value (19.1.26)</th><th class="num">Change</th></tr></thead>
+          <tbody>
+            <tr><td>21 Novak St, Everton Park QLD</td><td class="num">$592,000</td><td class="num">$1,290,000</td><td class="num pos">+118%</td></tr>
+            <tr><td>20 Gardenia Cct, Dakabin QLD</td><td class="num">$525,000</td><td class="num">$918,000</td><td class="num pos">+75%</td></tr>
+            <tr><td>2 Furness Way, Wellard WA</td><td class="num">$480,000</td><td class="num">$874,000</td><td class="num pos">+82%</td></tr>
+            <tr><td>Unit 8/72 Metroplex Ave, Wacol QLD</td><td class="num">$810,000</td><td class="num">—</td><td class="num">—</td></tr>
+            <tr class="total"><td>Total</td><td class="num">$2,407,000</td><td class="num">$3,082,000 + Wacol</td><td class="num"></td></tr>
+          </tbody>
+        </table></div></details>
+      </div>
+      <div class="card">
+        <h3>Property detail</h3>
+        <div class="scroll"><table>
+          <thead><tr><th>Property</th><th class="num">Rent</th><th class="num">Yield</th><th>Lease</th></tr></thead>
+          <tbody>
+            <tr><td>21 Novak St<br><span style="color:var(--muted); font-size:12px;">Everton Park QLD · settled Jun 2019</span></td><td class="num">$750/wk</td><td class="num">6.46%</td><td><span class="chip chip-good"><span class="dot"></span>To Jun 2027</span><br><span style="color:var(--muted); font-size:12px;">renewed at $750/wk from 5 Jun 26</span></td></tr>
+            <tr><td>20 Gardenia Cct<br><span style="color:var(--muted); font-size:12px;">Dakabin QLD · settled Nov 2021</span></td><td class="num">$670/wk</td><td class="num">6.64%</td><td><span class="chip chip-warn"><span class="dot"></span>Expired 31 Jan 26</span><br><span style="color:var(--muted); font-size:12px;">renewal not yet logged</span></td></tr>
+            <tr><td>2 Furness Way<br><span style="color:var(--muted); font-size:12px;">Wellard WA · settled May 2023</span></td><td class="num">$690/wk</td><td class="num">7.48%</td><td><span class="chip chip-warn"><span class="dot"></span>Expired 19 Apr 26</span><br><span style="color:var(--muted); font-size:12px;">renewal not yet logged</span></td></tr>
+            <tr><td>Unit 8/72 Metroplex Ave<br><span style="color:var(--muted); font-size:12px;">Wacol QLD · commercial · settled Feb 2026</span></td><td class="num">$48.6K/yr net</td><td class="num">6.0%</td><td><span class="chip chip-good"><span class="dot"></span>To Feb 2027</span><br><span style="color:var(--muted); font-size:12px;">SmartStores · net lease · no renewal option</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Cash flow</h2>
+      <p>Operating net cash flow per financial year from each property's ledger, excluding acquisition-year purchase outlays (Gardenia FY2022 −$89.7K, Furness FY2023 −$139.5K). Novak's ledger totals are unavailable (#REF!) and Wacol's FY2026 is dominated by the purchase (−$874.5K) — both are omitted here.</p>
+    </div>
+    <div class="cards-2">
+      <div class="card">
+        <h3>Operating net cash flow by FY</h3>
+        <div class="legend" id="lgB"></div>
+        <div class="chart-box" id="chartB"></div>
+        <p class="note">FY2025–26 positives are overstated: mortgage payments unlogged since Dec 2024 / Jan 2025.</p>
+        <details class="tbl"><summary>View data</summary><div class="scroll"><table>
+          <thead><tr><th>Property</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026</th></tr></thead>
+          <tbody>
+            <tr><td>20 Gardenia Cct</td><td class="num">−$4,098</td><td class="num">−$7,823</td><td class="num pos">+$5,188</td><td class="num pos">+$20,561</td></tr>
+            <tr><td>2 Furness Way</td><td class="num">(acquired)</td><td class="num">−$12,921</td><td class="num pos">+$10,854</td><td class="num pos">+$16,733</td></tr>
+          </tbody>
+        </table></div></details>
+      </div>
+      <div class="card">
+        <h3>Lifetime net cash flow — all nine properties</h3>
+        <p class="note" style="margin-top:-4px;">Ledger reconciliation, whole of ownership incl. purchase and sale proceeds.</p>
+        <div class="scroll"><table>
+          <thead><tr><th>Property</th><th>Status</th><th class="num">Net cash flow</th></tr></thead>
+          <tbody>
+            <tr><td>21 Novak Street</td><td><span class="chip chip-good"><span class="dot"></span>Current</span></td><td class="num">#REF! (broken)</td></tr>
+            <tr><td>20 Gardenia Circuit</td><td><span class="chip chip-good"><span class="dot"></span>Current</span></td><td class="num">−$75,839</td></tr>
+            <tr><td>2 Furness Way</td><td><span class="chip chip-good"><span class="dot"></span>Current</span></td><td class="num">−$124,811</td></tr>
+            <tr><td>Wacol Unit 8</td><td><span class="chip chip-good"><span class="dot"></span>Current</span></td><td class="num">−$877,453</td></tr>
+            <tr><td>15 Navua Street</td><td><span class="chip chip-info"><span class="dot"></span>Transferred</span></td><td class="num">−$516,133</td></tr>
+            <tr><td>6 Lochore Court</td><td><span class="chip chip-info"><span class="dot"></span>Transferred</span></td><td class="num">−$101,188</td></tr>
+            <tr><td>184 Lawes Street</td><td><span class="chip chip-info"><span class="dot"></span>Transferred</span></td><td class="num">−$191,009</td></tr>
+            <tr><td>1 Saffron Avenue</td><td><span class="chip chip-info"><span class="dot"></span>Sold Nov 24</span></td><td class="num pos">+$77,620</td></tr>
+            <tr><td>59 Whatley Street</td><td><span class="chip chip-info"><span class="dot"></span>Sold Sep 24</span></td><td class="num">−$2,467</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">Current-property figures include the full purchase outlay but no sale, so they read negative by construction. Transferred figures likewise exclude transfer value.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Rent collected by financial year</h2>
+      <p>Rent logged across the whole portfolio's history (Jul–Jun financial years). The FY2024 peak reflects eight tenanted properties before the 2024–25 sales and transfers. Novak's rent is missing from every year (#REF!), and FY2026 is a part-year: rent unlogged since Feb–Mar 2026.</p>
+    </div>
+    <div class="card">
+      <div class="legend" id="lgC"></div>
+      <div class="chart-box" id="chartC"></div>
+      <details class="tbl"><summary>View data</summary><div class="scroll"><table id="tblC"></table></div></details>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Loans</h2>
+      <p>Current facilities against the four held properties. Estimated total debt ≈ $2.03M.</p>
+    </div>
+    <div class="card">
+      <div class="scroll"><table>
+        <thead><tr><th>Property</th><th>Lender</th><th>Type</th><th class="num">Rate</th><th class="num">Balance</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>21 Novak St</td><td>Westpac</td><td>Variable P&amp;I</td><td class="num">6.33%</td><td class="num">≈ $660,000</td><td>balance per checklist estimate; repayments unlogged since Jan 2025</td></tr>
+          <tr><td>20 Gardenia Cct</td><td>Westpac</td><td>Variable P&amp;I</td><td class="num">6.28%</td><td class="num">$472,500</td><td>rolled off 2.24% fixed in Nov 2023 · LVR 90% vs purchase</td></tr>
+          <tr><td>2 Furness Way</td><td>Westpac</td><td>Variable IO (3yr)</td><td class="num">6.64%</td><td class="num">$440,000</td><td>two splits: $385,000 + $55,000 · IO since Dec 2023</td></tr>
+          <tr><td>Wacol Unit 8</td><td>Remara Money</td><td>Variable IO 5yr → P&amp;I</td><td class="num">7.50%</td><td class="num">$460,000</td><td>IO to Feb 2031, then ≈ $3,399/mo P&amp;I · guarantor Beidi Zeng</td></tr>
+          <tr class="total"><td>Total</td><td></td><td></td><td></td><td class="num">≈ $2,032,500</td><td></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Data health — from the spreadsheet's own checklist</h2>
+      <p>19 open items on the CHECKS tab. The ones that most affect the numbers above:</p>
+    </div>
+    <div class="card">
+      <ul class="checks">
+        <li><strong>Portfolio-wide:</strong> bank-side logging (mortgage, insurance) stopped ~Jan 2025 across Novak, Gardenia and Furness — the checklist suggests a routine to import bank statements. Until then, FY2025–26 cash flow is overstated by roughly $130K+ of unlogged repayments.</li>
+        <li><strong>21 Novak St:</strong> ledger formulas broken (#REF!); ~17 months of mortgage repayments (est. $60–70K), insurance since Jan 2025 (est. $1,300), and ~15 weeks of rent (~$11K) all missing. Land tax 2024–26 unconfirmed.</li>
+        <li><strong>20 Gardenia Cct:</strong> ~18 months of repayments (≈ $52K), insurance, and council/water since late 2024 to log; rent/PM unlogged since 16 Mar 2026.</li>
+        <li><strong>2 Furness Way:</strong> ~19 months of repayments (≈ $21K) and insurance to log; rent/PM unlogged since 19 Feb 2026.</li>
+        <li><strong>Wacol Unit 8:</strong> ledger has only 5 pre-purchase entries — settlement costs, mortgage, body corporate, insurance, rates and rent since Feb 2026 all still to be built out.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    Built from <strong>A__Property_Overview_Updated 03.07.26.xlsx</strong> · Overview (after Mat), per-property ledger tabs, ledger reconciliation and checks. Valuations dated 19 Jan 2026; “est.” figures combine sheet values with the checklist's stated loan estimates. Financial years run July–June.
+  </footer>
+</div>
+
+<div id="tip" role="status"></div>
+
+<script>
+(function () {
+  var css = function (v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); };
+  var NS = 'http://www.w3.org/2000/svg';
+  var tip = document.getElementById('tip');
+
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function fmtMoney(v) {
+    var sign = v < 0 ? '−' : '';
+    return sign + '$' + Math.abs(v).toLocaleString('en-AU');
+  }
+  function fmtK(v) {
+    var sign = v < 0 ? '−' : '';
+    var a = Math.abs(v);
+    if (a >= 1e6) return sign + '$' + (a / 1e6).toFixed(1) + 'M';
+    if (a >= 1e3) return sign + '$' + Math.round(a / 1e3) + 'K';
+    return sign + '$' + a;
+  }
+  function showTip(html, x, y) {
+    tip.innerHTML = html;
+    tip.style.display = 'block';
+    var r = tip.getBoundingClientRect();
+    var left = Math.min(x + 14, window.innerWidth - r.width - 8);
+    var top = y - r.height - 12;
+    if (top < 8) top = y + 16;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hideTip() { tip.style.display = 'none'; }
+
+  function legend(id, items) {
+    var box = document.getElementById(id);
+    box.innerHTML = '';
+    items.forEach(function (it) {
+      var s = document.createElement('span');
+      s.className = 'key';
+      s.innerHTML = '<span class="sw" style="background:' + it.color + '"></span>' + it.label;
+      box.appendChild(s);
+    });
+  }
+
+  function niceTicks(maxV, n) {
+    var raw = maxV / n;
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var step = [1, 2, 2.5, 5, 10].map(function (m) { return m * mag; })
+      .find(function (s) { return s >= raw; }) || 10 * mag;
+    var ticks = [];
+    for (var v = 0; v <= maxV + 1e-6; v += step) ticks.push(v);
+    return ticks;
+  }
+
+  // ---------- Chart A: purchase vs value, grouped bars ----------
+  function chartA() {
+    var box = document.getElementById('chartA');
+    box.innerHTML = '';
+    var data = [
+      { name: 'Novak', full: '21 Novak St, Everton Park QLD', p: 592000, v: 1290000 },
+      { name: 'Gardenia', full: '20 Gardenia Cct, Dakabin QLD', p: 525000, v: 918000 },
+      { name: 'Furness', full: '2 Furness Way, Wellard WA', p: 480000, v: 874000 },
+      { name: 'Wacol', full: 'Unit 8/72 Metroplex Ave, Wacol QLD', p: 810000, v: null }
+    ];
+    var W = Math.max(box.clientWidth || 480, 420), H = 260;
+    var m = { t: 18, r: 8, b: 26, l: 46 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var maxV = 1400000;
+    var y = function (v) { return m.t + ph - (v / maxV) * ph; };
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Grouped bar chart of purchase price versus current value for the four current properties' }, box);
+
+    niceTicks(maxV, 4).forEach(function (t) {
+      el('line', { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), stroke: t === 0 ? css('--baseline') : css('--grid'), 'stroke-width': 1 }, svg);
+      if (t > 0) {
+        var lb = el('text', { x: m.l - 6, y: y(t) + 3.5, 'text-anchor': 'end', fill: css('--muted'), 'font-size': 11, style: 'font-variant-numeric: tabular-nums' }, svg);
+        lb.textContent = fmtK(t);
+      }
+    });
+
+    var band = pw / data.length;
+    var barW = Math.min(24, band / 3.4);
+    var cols = { p: css('--ramp-lo'), v: css('--ramp-hi') };
+
+    data.forEach(function (d, i) {
+      var cx = m.l + band * i + band / 2;
+      var x1 = cx - barW - 1, x2 = cx + 1;
+      function bar(x, val, color) {
+        if (val == null) return null;
+        var h = Math.max((val / maxV) * ph, 2);
+        return el('path', {
+          d: 'M' + x + ',' + (m.t + ph) + ' v' + (-(h - 4)) + ' q0,-4 4,-4 h' + (barW - 8) + ' q4,0 4,4 v' + (h - 4) + ' z',
+          fill: color
+        }, svg);
+      }
+      bar(x1, d.p, cols.p);
+      bar(x2, d.v, cols.v);
+      if (d.v != null) {
+        var lab = el('text', { x: x2 + barW / 2, y: y(d.v) - 6, 'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': 11, 'font-weight': 600 }, svg);
+        lab.textContent = fmtK(d.v);
+      } else {
+        var lab2 = el('text', { x: x1 + barW / 2, y: y(d.p) - 6, 'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': 11, 'font-weight': 600 }, svg);
+        lab2.textContent = fmtK(d.p);
+      }
+      var xl = el('text', { x: cx, y: H - 8, 'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': 11.5 }, svg);
+      xl.textContent = d.name;
+
+      var hit = el('rect', { x: m.l + band * i, y: m.t, width: band, height: ph, fill: 'transparent' }, svg);
+      hit.addEventListener('mousemove', function (e) {
+        var rows = '<div class="t-row"><span class="k"><span class="sw" style="background:' + cols.p + '"></span>Purchase</span><span class="v">' + fmtMoney(d.p) + '</span></div>';
+        if (d.v != null) {
+          rows += '<div class="t-row"><span class="k"><span class="sw" style="background:' + cols.v + '"></span>Value 19.1.26</span><span class="v">' + fmtMoney(d.v) + '</span></div>';
+          rows += '<div class="t-row"><span class="k">Change</span><span class="v">+' + Math.round((d.v / d.p - 1) * 100) + '%</span></div>';
+        } else {
+          rows += '<div class="t-row"><span class="k">Value</span><span class="v">not yet valued</span></div>';
+        }
+        showTip('<div class="t-title">' + d.full + '</div>' + rows, e.clientX, e.clientY);
+      });
+      hit.addEventListener('mouseleave', hideTip);
+    });
+    legend('lgA', [
+      { label: 'Purchase price', color: cols.p },
+      { label: 'Current value (19.1.26)', color: cols.v }
+    ]);
+  }
+
+  // ---------- Chart B: operating net cash flow, grouped bars around zero ----------
+  function chartB() {
+    var box = document.getElementById('chartB');
+    box.innerHTML = '';
+    var years = ['FY2023', 'FY2024', 'FY2025', 'FY2026'];
+    var series = [
+      { name: '20 Gardenia Cct', color: css('--s4'), vals: [-4098, -7823, 5188, 20561] },
+      { name: '2 Furness Way', color: css('--s7'), vals: [null, -12921, 10854, 16733] }
+    ];
+    var W = Math.max(box.clientWidth || 480, 420), H = 260;
+    var m = { t: 14, r: 8, b: 26, l: 46 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var maxV = 24000, minV = -16000;
+    var y = function (v) { return m.t + (maxV - v) / (maxV - minV) * ph; };
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Grouped bar chart of operating net cash flow by financial year for Gardenia and Furness' }, box);
+
+    [-16000, -8000, 0, 8000, 16000, 24000].forEach(function (t) {
+      el('line', { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), stroke: t === 0 ? css('--baseline') : css('--grid'), 'stroke-width': 1 }, svg);
+      var lb = el('text', { x: m.l - 6, y: y(t) + 3.5, 'text-anchor': 'end', fill: css('--muted'), 'font-size': 11, style: 'font-variant-numeric: tabular-nums' }, svg);
+      lb.textContent = fmtK(t);
+    });
+
+    var band = pw / years.length;
+    var barW = Math.min(24, band / 3.4);
+    years.forEach(function (yr, i) {
+      var cx = m.l + band * i + band / 2;
+      series.forEach(function (s, si) {
+        var v = s.vals[i];
+        if (v == null) return;
+        var x = cx + (si === 0 ? -barW - 1 : 1);
+        var h = Math.abs(y(v) - y(0));
+        var top = v >= 0 ? y(v) : y(0);
+        var r = Math.min(4, h / 2);
+        var d;
+        if (v >= 0) {
+          d = 'M' + x + ',' + (top + h) + ' v' + (-(h - r)) + ' q0,-' + r + ' ' + r + ',-' + r + ' h' + (barW - 2 * r) + ' q' + r + ',0 ' + r + ',' + r + ' v' + (h - r) + ' z';
+        } else {
+          d = 'M' + x + ',' + top + ' v' + (h - r) + ' q0,' + r + ' ' + r + ',' + r + ' h' + (barW - 2 * r) + ' q' + r + ',0 ' + r + ',-' + r + ' v' + (-(h - r)) + ' z';
+        }
+        el('path', { d: d, fill: s.color }, svg);
+        var lab = el('text', {
+          x: x + barW / 2, y: v >= 0 ? top - 5 : top + h + 12,
+          'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': 10.5, 'font-weight': 600
+        }, svg);
+        lab.textContent = fmtK(v);
+      });
+      var xl = el('text', { x: cx, y: H - 8, 'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': 11.5 }, svg);
+      xl.textContent = yr;
+
+      var hit = el('rect', { x: m.l + band * i, y: m.t, width: band, height: ph, fill: 'transparent' }, svg);
+      hit.addEventListener('mousemove', function (e) {
+        var rows = series.map(function (s) {
+          var v = s.vals[i];
+          return '<div class="t-row"><span class="k"><span class="sw" style="background:' + s.color + '"></span>' + s.name + '</span><span class="v">' + (v == null ? 'not yet held' : fmtMoney(v)) + '</span></div>';
+        }).join('');
+        showTip('<div class="t-title">' + yr + '</div>' + rows, e.clientX, e.clientY);
+      });
+      hit.addEventListener('mouseleave', hideTip);
+    });
+    legend('lgB', series.map(function (s) { return { label: s.name, color: s.color }; }));
+  }
+
+  // ---------- Chart C: stacked rent by FY ----------
+  function chartC() {
+    var box = document.getElementById('chartC');
+    box.innerHTML = '';
+    var years = ['FY2020', 'FY2021', 'FY2022', 'FY2023', 'FY2024', 'FY2025', 'FY2026'];
+    // Stack (and slot) order = settlement order.
+    var series = [
+      { name: '1 Saffron Ave', slot: '--s1', vals: [19440, 28376, 28990, 30170, 33701, 9193, 0] },
+      { name: '15 Navua St', slot: '--s2', vals: [13760, 22330, 23340, 23720, 28209, 30175, 9447] },
+      { name: '59 Whatley St', slot: '--s3', vals: [3910, 24070, 27120, 27250, 24450, 0, 0] },
+      { name: '20 Gardenia Cct', slot: '--s4', vals: [0, 0, 14837, 24900, 28350, 30982, 24320] },
+      { name: '6 Lochore Ct', slot: '--s5', vals: [0, 0, 13120, 21103, 26632, 16532, 0] },
+      { name: '184 Lawes St', slot: '--s6', vals: [0, 0, 0, 29279, 45095, 31369, 0] },
+      { name: '2 Furness Way', slot: '--s7', vals: [0, 0, 0, 4320, 29175, 34360, 23460] },
+      { name: 'Wacol Unit 8', slot: '--s8', vals: [0, 0, 0, 0, 0, 0, 16200] }
+    ];
+    series.forEach(function (s) { s.color = css(s.slot); });
+    var totals = years.map(function (_, i) {
+      return series.reduce(function (a, s) { return a + s.vals[i]; }, 0);
+    });
+    var W = Math.max(box.clientWidth || 900, 640), H = 320;
+    var m = { t: 24, r: 8, b: 26, l: 50 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var maxV = 240000;
+    var y = function (v) { return m.t + ph - (v / maxV) * ph; };
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Stacked column chart of rent collected per financial year by property' }, box);
+
+    niceTicks(maxV, 4).forEach(function (t) {
+      el('line', { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), stroke: t === 0 ? css('--baseline') : css('--grid'), 'stroke-width': 1 }, svg);
+      if (t > 0) {
+        var lb = el('text', { x: m.l - 6, y: y(t) + 3.5, 'text-anchor': 'end', fill: css('--muted'), 'font-size': 11, style: 'font-variant-numeric: tabular-nums' }, svg);
+        lb.textContent = fmtK(t);
+      }
+    });
+
+    var band = pw / years.length;
+    var barW = Math.min(24, band * 0.42);
+    years.forEach(function (yr, i) {
+      var cx = m.l + band * i + band / 2;
+      var x = cx - barW / 2;
+      var acc = 0;
+      var segs = series.filter(function (s) { return s.vals[i] > 0; });
+      segs.forEach(function (s, si) {
+        var v = s.vals[i];
+        var y0 = y(acc), y1 = y(acc + v);
+        var top = y1, hRaw = y0 - y1;
+        var isTop = si === segs.length - 1;
+        var gap = si > 0 ? 1 : 0; // 2px total between segments (1 each side)
+        var h = Math.max(hRaw - gap - (isTop ? 0 : 1), 1);
+        if (isTop) {
+          var r = Math.min(4, h / 2, barW / 2);
+          el('path', {
+            d: 'M' + x + ',' + (top + hRaw) + ' v' + (-(hRaw - r)) + ' q0,-' + r + ' ' + r + ',-' + r + ' h' + (barW - 2 * r) + ' q' + r + ',0 ' + r + ',' + r + ' v' + (hRaw - r) + ' z',
+            fill: s.color
+          }, svg);
+        } else {
+          el('rect', { x: x, y: top + 1, width: barW, height: h, fill: s.color }, svg);
+        }
+        acc += v;
+      });
+      if (totals[i] > 0) {
+        var lab = el('text', { x: cx, y: y(totals[i]) - 7, 'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': 11, 'font-weight': 600 }, svg);
+        lab.textContent = fmtK(totals[i]);
+      }
+      var xl = el('text', { x: cx, y: H - 8, 'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': 11.5 }, svg);
+      xl.textContent = yr;
+
+      var hit = el('rect', { x: m.l + band * i, y: m.t, width: band, height: ph, fill: 'transparent' }, svg);
+      hit.addEventListener('mousemove', function (e) {
+        var rows = series.filter(function (s) { return s.vals[i] > 0; })
+          .map(function (s) {
+            return '<div class="t-row"><span class="k"><span class="sw" style="background:' + s.color + '"></span>' + s.name + '</span><span class="v">' + fmtMoney(s.vals[i]) + '</span></div>';
+          }).reverse().join('');
+        showTip('<div class="t-title">' + yr + ' · total ' + fmtMoney(totals[i]) + '</div>' + (rows || '<div class="t-row"><span class="k">No rent logged</span></div>'), e.clientX, e.clientY);
+      });
+      hit.addEventListener('mouseleave', hideTip);
+    });
+
+    legend('lgC', series.map(function (s) { return { label: s.name, color: s.color }; }));
+
+    // table view
+    var tbl = document.getElementById('tblC');
+    var head = '<thead><tr><th>Property</th>' + years.map(function (yr) { return '<th class="num">' + yr + '</th>'; }).join('') + '</tr></thead>';
+    var body = series.map(function (s) {
+      return '<tr><td>' + s.name + '</td>' + s.vals.map(function (v) {
+        return '<td class="num">' + (v > 0 ? fmtMoney(v) : '—') + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+    body += '<tr class="total"><td>Total</td>' + totals.map(function (t) { return '<td class="num">' + fmtMoney(t) + '</td>'; }).join('') + '</tr>';
+    tbl.innerHTML = head + '<tbody>' + body + '</tbody>';
+  }
+
+  function drawAll() { chartA(); chartB(); chartC(); }
+  drawAll();
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(drawAll, 150);
+  });
+  // Redraw when the artifact viewer toggles theme (colors are read at draw time).
+  new MutationObserver(drawAll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawAll);
+  }
+})();
+</script>
