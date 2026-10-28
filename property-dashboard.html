@@ -167,6 +167,36 @@
   #tip .t-row .v { font-variant-numeric: tabular-nums; font-weight: 600; }
   #tip .sw { width: 9px; height: 9px; border-radius: 3px; display: inline-block; flex: none; }
 
+  .prop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+  .prop-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; padding: 0; text-align: left; font: inherit; color: inherit; transition: transform .12s ease, box-shadow .12s ease; display: flex; flex-direction: column; }
+  .prop-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+  .prop-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .prop-photo { height: 104px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 34px; }
+  .prop-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .prop-body .addr { font-weight: 650; font-size: 14px; color: var(--ink); }
+  .prop-body .sub2 { font-size: 12px; color: var(--muted); }
+  .prop-kpis { display: flex; gap: 10px 14px; font-size: 12.5px; color: var(--ink-2); flex-wrap: wrap; }
+  .prop-kpis b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  #pmodal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: flex-start; justify-content: center; z-index: 50; padding: 4vh 16px; overflow-y: auto; }
+  #pmodal.open { display: flex; }
+  #pmodal .sheet { background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 14px; max-width: 760px; width: 100%; padding: 0 0 20px; box-shadow: 0 18px 60px rgba(0,0,0,.3); position: relative; }
+  #pmodal .m-photo { border-radius: 13px 13px 0 0; height: 130px; display: flex; align-items: flex-end; padding: 14px 20px; color: #fff; }
+  #pmodal .m-photo h3 { margin: 0; font-size: 19px; text-shadow: 0 1px 6px rgba(0,0,0,.45); }
+  #pmodal .m-body { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 16px; }
+  #pmodal .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  #pmodal .fact { border: 1px solid var(--grid); border-radius: 8px; padding: 8px 10px; }
+  #pmodal .fact .k { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  #pmodal .fact .v { font-weight: 650; font-size: 15px; font-variant-numeric: tabular-nums; }
+  #pmodal .fact .s { font-size: 11.5px; color: var(--ink-2); }
+  #pmodal .close { position: absolute; top: 10px; right: 12px; background: var(--page); border: 1px solid var(--border); border-radius: 999px; width: 30px; height: 30px; cursor: pointer; font-size: 14px; color: var(--ink); z-index: 2; }
+  .steps-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+  details.sec-fold { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0 16px; }
+  details.sec-fold > summary { cursor: pointer; padding: 13px 0; font-weight: 650; font-size: 15px; color: var(--ink); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none; }
+  details.sec-fold > summary::-webkit-details-marker { display: none; }
+  details.sec-fold > summary::before { content: '▸'; color: var(--muted); transition: transform .12s; }
+  details.sec-fold[open] > summary::before { transform: rotate(90deg); }
+  details.sec-fold > section { padding-bottom: 16px; }
+
   footer { color: var(--muted); font-size: 12px; border-top: 1px solid var(--grid); padding-top: 16px; }
 </style>
 
@@ -220,6 +250,47 @@
 
   <section>
     <div class="sec-head">
+      <h2>Properties</h2>
+      <p>Click a card for that property's full story — value, rent history, lease, loan. Photos can't be fetched from realestate.com.au automatically; send Claude the four listing photos and they'll appear here.</p>
+    </div>
+    <div class="prop-grid">
+      <button class="prop-card" onclick="openProp('novak')" aria-haspopup="dialog">
+        <div class="prop-photo" style="background:linear-gradient(135deg,#8c6d3f,#c49a62)">🏠</div>
+        <div class="prop-body">
+          <span class="addr">21 Novak St</span>
+          <span class="sub2">Everton Park QLD · held since 2019</span>
+          <div class="prop-kpis"><span><b>$1.35M</b> value</span><span><b>$750</b>/wk</span><span><b>62%</b> LVR</span></div>
+        </div>
+      </button>
+      <button class="prop-card" onclick="openProp('gardenia')" aria-haspopup="dialog">
+        <div class="prop-photo" style="background:linear-gradient(135deg,#c98500,#eda100)">🏠</div>
+        <div class="prop-body">
+          <span class="addr">20 Gardenia Cct</span>
+          <span class="sub2">Dakabin QLD · held since 2021</span>
+          <div class="prop-kpis"><span><b>$960K</b> value</span><span><b>$670</b>/wk</span><span><b>60%</b> LVR</span></div>
+        </div>
+      </button>
+      <button class="prop-card" onclick="openProp('furness')" aria-haspopup="dialog">
+        <div class="prop-photo" style="background:linear-gradient(135deg,#4a3aa7,#9085e9)">🏠</div>
+        <div class="prop-body">
+          <span class="addr">2 Furness Way</span>
+          <span class="sub2">Wellard WA · held since 2023</span>
+          <div class="prop-kpis"><span><b>$920K</b> value</span><span><b>$700</b>/wk</span><span><b>53%</b> LVR</span></div>
+        </div>
+      </button>
+      <button class="prop-card" onclick="openProp('wacol')" aria-haspopup="dialog">
+        <div class="prop-photo" style="background:linear-gradient(135deg,#b23130,#e66767)">🏢</div>
+        <div class="prop-body">
+          <span class="addr">Unit 8/72 Metroplex Ave</span>
+          <span class="sub2">Wacol QLD · commercial · since Feb 2026</span>
+          <div class="prop-kpis"><span><b>$810K</b> value</span><span><b>$4,050</b>/mo net</span><span><b>57%</b> LVR</span></div>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
       <h2>Current portfolio</h2>
       <p>The four properties held after the split with Mat: three residential plus the Wacol commercial unit settled in February 2026.</p>
     </div>
@@ -249,6 +320,7 @@
             <tr><td>20 Gardenia Cct<br><span style="color:var(--muted); font-size:12px;">Dakabin QLD · settled Nov 2021</span></td><td class="num">$670/wk<br><span style="color:var(--muted); font-size:12px;">$730/wk offered from Feb 27</span></td><td class="num">$34,840<br><span style="color:var(--muted); font-size:12px;">$37,960 at $730</span></td><td class="num">6.64%<br><span style="color:var(--muted); font-size:12px;">7.23% at $730</span></td><td><span class="chip chip-good"><span class="dot"></span>To 31 Jan 27</span><br><span style="color:var(--muted); font-size:12px;">$670/wk since 2 Feb 26 · tenant paid to 3 Oct 26 · renewal offer $730/wk (+9.0%, CMA $720–730) per PM Oct 26</span></td></tr>
             <tr><td>2 Furness Way<br><span style="color:var(--muted); font-size:12px;">Wellard WA · settled May 2023</span></td><td class="num">$700/wk</td><td class="num">$36,400</td><td class="num">7.58%</td><td><span class="chip chip-good"><span class="dot"></span>To 3 Feb 2027</span><br><span style="color:var(--muted); font-size:12px;">renewed from 4 Feb 26 at $700/wk (was $690) · per lease file name and agent email</span></td></tr>
             <tr><td>Unit 8/72 Metroplex Ave<br><span style="color:var(--muted); font-size:12px;">Wacol QLD · commercial · settled Feb 2026</span></td><td class="num">$48.6K/yr net</td><td class="num">$48,600</td><td class="num">6.0%</td><td><span class="chip chip-good"><span class="dot"></span>To Feb 2027</span><br><span style="color:var(--muted); font-size:12px;">SmartStores · net lease · no renewal option</span></td></tr>
+            <tr class="total"><td>Total</td><td class="num"></td><td class="num">$158,840</td><td class="num"></td><td></td></tr>
           </tbody>
         </table></div>
       </div>
@@ -259,18 +331,6 @@
     <div class="sec-head">
       <h2>20 Gardenia Cct, from the agent's statements</h2>
       <p>Property Zest pays out rent twice a month, less its management fee, admin fee and any repairs. These figures are what the agent collected and paid to you, so they exclude the mortgage, insurance and rates.</p>
-    </div>
-    <div class="card">
-      <h3>Weekly rent history</h3>
-      <div class="steps">
-        <div class="step"><span class="d">Dec 2021</span><span class="r">$425</span><span class="n">first tenant</span></div>
-        <div class="step"><span class="d">Feb 2022</span><span class="r">$480</span><span class="n">+$55</span></div>
-        <div class="step"><span class="d">Jan 2023</span><span class="r">$500</span><span class="n">+$20</span></div>
-        <div class="step"><span class="d">Feb 2024</span><span class="r">$600</span><span class="n">+$100</span></div>
-        <div class="step"><span class="d">Feb 2025</span><span class="r">$610</span><span class="n">+$10</span></div>
-        <div class="step"><span class="d">Feb 2026</span><span class="r">$670</span><span class="n">+$60 · current</span></div>
-        <div class="step"><span class="d">Feb 2027</span><span class="r">$730</span><span class="n">+$60 · offered, pending tenant acceptance</span></div>
-      </div>
     </div>
     <div class="cards-2">
       <div class="card">
@@ -291,20 +351,6 @@
     <div class="sec-head">
       <h2>21 Novak St, from the agents' statements</h2>
       <p>Property Zest managed Novak from July 2019 to February 2024 and Brooke Willis Property has since 25 Feb 2024. Both pay rent out weekly or fortnightly, less their fee and any repairs. These figures exclude the mortgage, insurance, rates and land tax.</p>
-    </div>
-    <div class="card">
-      <h3>Weekly rent history</h3>
-      <div class="steps">
-        <div class="step"><span class="d">Jul 2019</span><span class="r">$550</span><span class="n">first tenant</span></div>
-        <div class="step"><span class="d">Sep 2021</span><span class="r">$560</span><span class="n">+$10</span></div>
-        <div class="step"><span class="d">Apr 2022</span><span class="r">$590</span><span class="n">+$30</span></div>
-        <div class="step"><span class="d">Apr 2023</span><span class="r">$610</span><span class="n">+$20</span></div>
-        <div class="step"><span class="d">Sep 2023</span><span class="r">$620</span><span class="n">+$10</span></div>
-        <div class="step"><span class="d">Mar 2024</span><span class="r">$650</span><span class="n">new agent</span></div>
-        <div class="step"><span class="d">Jun 2024</span><span class="r">$725</span><span class="n">new tenant</span></div>
-        <div class="step"><span class="d">May 2025</span><span class="r">$735</span><span class="n">+$10</span></div>
-        <div class="step"><span class="d">Jun 2026</span><span class="r">$750</span><span class="n">+$15 · current</span></div>
-      </div>
     </div>
     <div class="cards-2">
       <div class="card">
@@ -425,6 +471,8 @@
     Built from <strong>A__Property_Overview_Updated 03.07.26.xlsx</strong> (Overview, per-property ledger tabs, reconciliation and checks) plus Property Zest statements and folio summaries for 20 Gardenia Cct (OWN01080, OWN02296) and 21 Novak St (OWN00654, #1–#113), plus Brooke Willis Property ownership statements #1–#142 for Novak. Valuations dated 19 Jan 2026; “est.” figures combine sheet values with the checklist's stated loan estimates. Financial years run July–June.
   </footer>
 </div>
+
+<div id="pmodal" role="dialog" aria-modal="true"><div class="sheet"></div></div>
 
 <div id="tip" role="status"></div>
 
@@ -852,6 +900,112 @@
   if (window.matchMedia) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawAll);
   }
+})();
+</script>
+
+<script>
+(function () {
+  var PROPS = {
+    novak: {
+      full: '21 Novak Street, Everton Park QLD 4053',
+      grad: 'linear-gradient(135deg,#8c6d3f,#c49a62)',
+      facts: [
+        ['Purchase', '$592,000', 'settled 10 Jun 2019'],
+        ['Latest value', '$1,350,000', 'realestate.com.au high · 28.10.26'],
+        ['Growth', '+128%', '+$758,000 since purchase'],
+        ['Rent', '$750/wk', '$39,000/yr · yield 6.46%'],
+        ['Lease', 'to Jun 2027', '$750/wk from 5 Jun 26 · paid to 8 Oct 26'],
+        ['Loan', '$840,000', 'EP HL $663K @ 6.64% IO to Sep 28 + ER $177K'],
+        ['FY26 interest', '$29,039', 'per bank summary'],
+        ['Manager', 'Brooke Willis Property', 'since Feb 2024']
+      ],
+      steps: [['Jul 2019','$550','first tenant'],['Sep 2021','$560','+$10'],['Apr 2022','$590','+$30'],['Apr 2023','$610','+$20'],['Sep 2023','$620','+$10'],['Mar 2024','$650','new agent'],['Jun 2024','$725','new tenant'],['May 2025','$735','+$10'],['Jun 2026','$750','+$15 · current']]
+    },
+    gardenia: {
+      full: '20 Gardenia Circuit, Dakabin QLD 4503',
+      grad: 'linear-gradient(135deg,#c98500,#eda100)',
+      facts: [
+        ['Purchase', '$525,000', 'settled 12 Nov 2021'],
+        ['Latest value', '$960,000', 'realestate.com.au high · 28.10.26'],
+        ['Growth', '+83%', '+$435,000 since purchase'],
+        ['Rent', '$670/wk', '$34,840/yr · yield 6.64%'],
+        ['Renewal offer', '$730/wk', 'from Feb 27 (+9.0%, CMA $720–730) · pending'],
+        ['Lease', 'to 31 Jan 2027', 'tenant paid to 3 Oct 26'],
+        ['Loan', '$574,762', 'Dakabin HL $444,762 + ER $130,000'],
+        ['FY26 interest', '$20,003', 'per bank summary'],
+        ['Manager', 'Property Zest', 'since purchase']
+      ],
+      steps: [['Dec 2021','$425','first tenant'],['Feb 2022','$480','+$55'],['Jan 2023','$500','+$20'],['Feb 2024','$600','+$100'],['Feb 2025','$610','+$10'],['Feb 2026','$670','+$60 · current'],['Feb 2027','$730','+$60 · offered, pending']]
+    },
+    furness: {
+      full: '2 Furness Way, Wellard WA 6170',
+      grad: 'linear-gradient(135deg,#4a3aa7,#9085e9)',
+      facts: [
+        ['Purchase', '$480,000', 'settled 2 May 2023'],
+        ['Latest value', '$920,000', 'realestate.com.au high · 28.10.26'],
+        ['Growth', '+92%', '+$440,000 since purchase'],
+        ['Rent', '$700/wk', '$36,400/yr · yield 7.58%'],
+        ['Lease', '4 Feb 26 – 3 Feb 27', 'renewed at $700/wk (was $690)'],
+        ['Loan', '$490,000', 'Wellard HL $440,000 + ER $50,000'],
+        ['FY26 interest', '$8,368', 'offsets working hard here'],
+        ['Manager', 'Encore Property', 'since purchase']
+      ],
+      steps: [['Feb 2023','$480','first tenant'],['Feb 2024','$525','+$45'],['Apr 2025','$690','+$165'],['Feb 2026','$700','+$10 · current']]
+    },
+    wacol: {
+      full: 'Unit 8/72 Metroplex Avenue, Wacol QLD 4076',
+      grad: 'linear-gradient(135deg,#b23130,#e66767)',
+      facts: [
+        ['Purchase', '$810,000', 'settled 11 Feb 2026 · Opulentia Trust'],
+        ['Latest value', '$810,000', 'Valocity bank valuation 7.1.26'],
+        ['Rent', '$48,600/yr net', '+ GST · $4,050/mo · yield 6.0%'],
+        ['Lease', 'to Feb 2027', 'SmartStores · net lease · no renewal option'],
+        ['Loan', '$460,000', 'Remara 7.50% IO to Feb 2031'],
+        ['FY26 interest', '$11,722', 'per ledger (from Mar 26)'],
+        ['Manager', 'Ray White New Farm', '4.4% — fee treatment being confirmed']
+      ],
+      steps: [['Feb 2026','$4,050/mo','net lease start · $48.6K/yr + GST']]
+    }
+  };
+  var modal = document.getElementById('pmodal');
+  window.openProp = function (k) {
+    var p = PROPS[k];
+    if (!p) return;
+    modal.querySelector('.sheet').innerHTML =
+      '<button class="close" onclick="closeProp()" aria-label="Close">✕</button>' +
+      '<div class="m-photo" style="background:' + p.grad + '"><h3>' + p.full + '</h3></div>' +
+      '<div class="m-body">' +
+      '<div class="facts">' + p.facts.map(function (f) {
+        return '<div class="fact"><div class="k">' + f[0] + '</div><div class="v">' + f[1] + '</div><div class="s">' + f[2] + '</div></div>';
+      }).join('') + '</div>' +
+      '<div><div class="steps-lbl">Weekly rent history</div><div class="steps">' + p.steps.map(function (s) {
+        return '<div class="step"><span class="d">' + s[0] + '</span><span class="r">' + s[1] + '</span><span class="n">' + s[2] + '</span></div>';
+      }).join('') + '</div></div>' +
+      '</div>';
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeProp = function () {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeProp(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeProp(); });
+
+  // Fold the long sections into expandable rows so the page stays compact
+  document.querySelectorAll('.wrap > section').forEach(function (sec) {
+    var h2 = sec.querySelector('.sec-head h2');
+    if (!h2 || h2.textContent === 'Properties') return;
+    var d = document.createElement('details');
+    d.className = 'sec-fold';
+    var s = document.createElement('summary');
+    s.textContent = h2.textContent;
+    sec.parentNode.insertBefore(d, sec);
+    d.appendChild(s);
+    d.appendChild(sec);
+    h2.style.display = 'none';
+    d.addEventListener('toggle', function () { window.dispatchEvent(new Event('resize')); });
+  });
 })();
 </script>
 
