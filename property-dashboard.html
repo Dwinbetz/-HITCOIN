@@ -1,4 +1,5 @@
-<title>Property Portfolio Dashboard · 03.07.26</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Property Portfolio Dashboard · 05.10.26</title>
 <style>
   :root {
     --page: #f9f9f7;
@@ -16,7 +17,7 @@
     --serious: #ec835a;
     --critical: #d03b3b;
     --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
-    --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+    --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948; --s9: #8c6d3f;
     --ramp-lo: #86b6ef;
     --ramp-hi: #256abf;
     color-scheme: light;
@@ -34,7 +35,7 @@
       --accent: #3987e5;
       --good-text: #0ca30c;
       --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
-      --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+      --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #b8925c;
       --ramp-lo: #6da7ec;
       --ramp-hi: #3987e5;
       color-scheme: dark;
@@ -52,7 +53,7 @@
     --accent: #3987e5;
     --good-text: #0ca30c;
     --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
-    --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s9: #b8925c;
     --ramp-lo: #6da7ec;
     --ramp-hi: #3987e5;
     color-scheme: dark;
@@ -75,7 +76,7 @@
     color: var(--muted); margin: 0 0 6px;
   }
   header h1 { font-size: 26px; font-weight: 650; margin: 0 0 6px; text-wrap: balance; }
-  header .src { color: var(--ink-2); font-size: 13px; margin: 0; }
+  header .src { color: var(--ink-2); font-size: 13px; margin: 0 0 4px; }
   header .src code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
     background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px;
@@ -145,6 +146,15 @@
   ul.checks { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 13px; display: flex; flex-direction: column; gap: 6px; }
   ul.checks strong { color: var(--ink); font-weight: 600; }
 
+  .steps { display: flex; flex-wrap: wrap; gap: 8px 0; align-items: stretch; }
+  .step {
+    flex: 1 1 120px; min-width: 0; padding: 8px 12px 8px 0; display: flex; flex-direction: column; gap: 1px;
+    border-top: 2px solid var(--ramp-hi); margin-right: 12px;
+  }
+  .step .d { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+  .step .r { font-size: 18px; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .step .n { font-size: 12px; color: var(--ink-2); }
+
   #tip {
     position: fixed; pointer-events: none; z-index: 10; display: none;
     background: var(--surface); color: var(--ink); border: 1px solid var(--border);
@@ -164,19 +174,21 @@
   <header>
     <p class="eyebrow">Beidi · Investment properties</p>
     <h1>Property Portfolio Dashboard</h1>
-    <p class="src">Source: <code>A__Property_Overview_Updated 03.07.26.xlsx</code> (Google Drive · 2. Property · Property Overview) — ledger data as at 3 Jul 2026, valuations as at 19 Jan 2026.</p>
+    <p class="src">Source: <code>A__Property_Overview_Updated 03.07.26.xlsx</code> — ledger data as at 3 Jul 2026, valuations as at 19 Jan 2026.</p>
+    <p class="src">Updated 5 Oct 2026 with the agents' statements for <strong>20 Gardenia Cct, Dakabin</strong> (to 1 Oct 2026) and <strong>21 Novak St, Everton Park</strong> (Jul 2019 to 2 Oct 2026).</p>
+    <p class="src">Updated 28 Oct 2026: <strong>Gardenia lease renewal</strong> — current lease runs to 31 Jan 2027 at $670/wk; PM recommends $720–730/wk (CMA) and a $730/wk 12-month renewal is being offered from February 2027.</p>
   </header>
 
   <div class="banner">
     <svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5 15 14H1L8 1.5Z" fill="none" stroke="var(--serious)" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6v4" stroke="var(--serious)" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="12" r="0.9" fill="var(--serious)"/></svg>
-    <div><strong>Read FY2025–26 figures as provisional.</strong> The spreadsheet's own checklist flags that mortgage and insurance entries stopped being logged around Jan 2025 (Novak, Gardenia, Furness) and rent hasn't been logged since Feb–Mar 2026 — so recent-year cash flow is overstated and rent understated. The 21 Novak Street tab currently has broken formulas (#REF!), so its ledger totals are missing throughout.</div>
+    <div><strong>Rent is now complete for Gardenia and Novak; Furness and Wacol are still provisional.</strong> Their rent and agent fees come straight from the agents' statements, to early October 2026. Mortgage and insurance entries stopped being logged around Jan 2025 for Novak, Gardenia and Furness, so cash flow after repayments is still overstated. Rent hasn't been logged for Furness since Feb 2026, and the spreadsheet's 21 Novak Street tab still has broken formulas (#REF!).</div>
   </div>
 
   <div class="tiles">
     <div class="tile hero">
       <span class="lbl">Portfolio value (est.)</span>
       <span class="val">$3.89M</span>
-      <span class="sub">3 residential at 19.1.26 valuations + Wacol at purchase price</span>
+      <span class="sub">3 houses at 19.1.26 valuations ($3.08M) + Wacol at $810K bank valuation</span>
     </div>
     <div class="tile">
       <span class="lbl">Growth on current holdings</span>
@@ -185,8 +197,8 @@
     </div>
     <div class="tile">
       <span class="lbl">Gross rent</span>
-      <span class="val">$157.5K<span style="font-size:16px; font-weight:600; color:var(--ink-2);"> /yr</span></span>
-      <span class="sub">$108,940 residential + $48,600 Wacol net lease</span>
+      <span class="val">$158.8K<span style="font-size:16px; font-weight:600; color:var(--ink-2);"> /yr</span></span>
+      <span class="sub">$110,240 residential at current weekly rents + $48,600 Wacol net lease</span>
     </div>
     <div class="tile">
       <span class="lbl">Est. debt → equity</span>
@@ -210,15 +222,15 @@
         <h3>Purchase price vs current value</h3>
         <div class="legend" id="lgA"></div>
         <div class="chart-box" id="chartA"></div>
-        <p class="note">Wacol settled 19 Feb 2026 and has no valuation yet — purchase price only.</p>
+        <p class="note">Wacol is shown at its bank valuation of $810,000 (Valocity, 7 Jan 2026), the same as the purchase price. The three houses are at 19 Jan 2026 valuations.</p>
         <details class="tbl"><summary>View data</summary><div class="scroll"><table>
           <thead><tr><th>Property</th><th class="num">Purchase</th><th class="num">Value (19.1.26)</th><th class="num">Change</th></tr></thead>
           <tbody>
             <tr><td>21 Novak St, Everton Park QLD</td><td class="num">$592,000</td><td class="num">$1,290,000</td><td class="num pos">+118%</td></tr>
             <tr><td>20 Gardenia Cct, Dakabin QLD</td><td class="num">$525,000</td><td class="num">$918,000</td><td class="num pos">+75%</td></tr>
             <tr><td>2 Furness Way, Wellard WA</td><td class="num">$480,000</td><td class="num">$874,000</td><td class="num pos">+82%</td></tr>
-            <tr><td>Unit 8/72 Metroplex Ave, Wacol QLD</td><td class="num">$810,000</td><td class="num">—</td><td class="num">—</td></tr>
-            <tr class="total"><td>Total</td><td class="num">$2,407,000</td><td class="num">$3,082,000 + Wacol</td><td class="num"></td></tr>
+            <tr><td>Unit 8/72 Metroplex Pl, Wacol QLD</td><td class="num">$810,000</td><td class="num">$810,000</td><td class="num">0%</td></tr>
+            <tr class="total"><td>Total</td><td class="num">$2,407,000</td><td class="num">$3,892,000</td><td class="num"></td></tr>
           </tbody>
         </table></div></details>
       </div>
@@ -227,12 +239,78 @@
         <div class="scroll"><table>
           <thead><tr><th>Property</th><th class="num">Rent</th><th class="num">Yield</th><th>Lease</th></tr></thead>
           <tbody>
-            <tr><td>21 Novak St<br><span style="color:var(--muted); font-size:12px;">Everton Park QLD · settled Jun 2019</span></td><td class="num">$750/wk</td><td class="num">6.46%</td><td><span class="chip chip-good"><span class="dot"></span>To Jun 2027</span><br><span style="color:var(--muted); font-size:12px;">renewed at $750/wk from 5 Jun 26</span></td></tr>
-            <tr><td>20 Gardenia Cct<br><span style="color:var(--muted); font-size:12px;">Dakabin QLD · settled Nov 2021</span></td><td class="num">$670/wk</td><td class="num">6.64%</td><td><span class="chip chip-warn"><span class="dot"></span>Expired 31 Jan 26</span><br><span style="color:var(--muted); font-size:12px;">renewal not yet logged</span></td></tr>
-            <tr><td>2 Furness Way<br><span style="color:var(--muted); font-size:12px;">Wellard WA · settled May 2023</span></td><td class="num">$690/wk</td><td class="num">7.48%</td><td><span class="chip chip-warn"><span class="dot"></span>Expired 19 Apr 26</span><br><span style="color:var(--muted); font-size:12px;">renewal not yet logged</span></td></tr>
+            <tr><td>21 Novak St<br><span style="color:var(--muted); font-size:12px;">Everton Park QLD · settled Jun 2019</span></td><td class="num">$750/wk</td><td class="num">6.46%</td><td><span class="chip chip-good"><span class="dot"></span>To Jun 2027</span><br><span style="color:var(--muted); font-size:12px;">$750/wk from 5 Jun 26 · tenant paid to 8 Oct 26</span></td></tr>
+            <tr><td>20 Gardenia Cct<br><span style="color:var(--muted); font-size:12px;">Dakabin QLD · settled Nov 2021</span></td><td class="num">$670/wk<br><span style="color:var(--muted); font-size:12px;">$730/wk offered from Feb 27</span></td><td class="num">6.64%<br><span style="color:var(--muted); font-size:12px;">7.23% at $730</span></td><td><span class="chip chip-good"><span class="dot"></span>To 31 Jan 27</span><br><span style="color:var(--muted); font-size:12px;">$670/wk since 2 Feb 26 · tenant paid to 3 Oct 26 · renewal offer $730/wk (+9.0%, CMA $720–730) per PM Oct 26</span></td></tr>
+            <tr><td>2 Furness Way<br><span style="color:var(--muted); font-size:12px;">Wellard WA · settled May 2023</span></td><td class="num">$700/wk</td><td class="num">7.58%</td><td><span class="chip chip-good"><span class="dot"></span>To 3 Feb 2027</span><br><span style="color:var(--muted); font-size:12px;">renewed from 4 Feb 26 at $700/wk (was $690) · per lease file name and agent email</span></td></tr>
             <tr><td>Unit 8/72 Metroplex Ave<br><span style="color:var(--muted); font-size:12px;">Wacol QLD · commercial · settled Feb 2026</span></td><td class="num">$48.6K/yr net</td><td class="num">6.0%</td><td><span class="chip chip-good"><span class="dot"></span>To Feb 2027</span><br><span style="color:var(--muted); font-size:12px;">SmartStores · net lease · no renewal option</span></td></tr>
           </tbody>
         </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>20 Gardenia Cct, from the agent's statements</h2>
+      <p>Property Zest pays out rent twice a month, less its management fee, admin fee and any repairs. These figures are what the agent collected and paid to you, so they exclude the mortgage, insurance and rates.</p>
+    </div>
+    <div class="card">
+      <h3>Weekly rent history</h3>
+      <div class="steps">
+        <div class="step"><span class="d">Dec 2021</span><span class="r">$425</span><span class="n">first tenant</span></div>
+        <div class="step"><span class="d">Feb 2022</span><span class="r">$480</span><span class="n">+$55</span></div>
+        <div class="step"><span class="d">Jan 2023</span><span class="r">$500</span><span class="n">+$20</span></div>
+        <div class="step"><span class="d">Feb 2024</span><span class="r">$600</span><span class="n">+$100</span></div>
+        <div class="step"><span class="d">Feb 2025</span><span class="r">$610</span><span class="n">+$10</span></div>
+        <div class="step"><span class="d">Feb 2026</span><span class="r">$670</span><span class="n">+$60 · current</span></div>
+        <div class="step"><span class="d">Feb 2027</span><span class="r">$730</span><span class="n">+$60 · offered, pending tenant acceptance</span></div>
+      </div>
+    </div>
+    <div class="cards-2">
+      <div class="card">
+        <h3>Where the rent went, by financial year</h3>
+        <div class="legend" id="lgD"></div>
+        <div class="chart-box" id="chartD"></div>
+        <p class="note">FY2027 runs from 1 Jul to the 1 Oct 2026 statement. FY2025 is summed from individual statements because no folio summary is on file for that year.</p>
+      </div>
+      <div class="card">
+        <h3>Money in and out</h3>
+        <div class="scroll"><table id="tblD"></table></div>
+        <p class="note">Money in is rent plus water recharged to the tenant. Money out is the management fee, admin fee and repairs the agent paid. FY2022 to FY2024 and FY2026 match the agent's annual folio summaries.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>21 Novak St, from the agents' statements</h2>
+      <p>Property Zest managed Novak from July 2019 to February 2024 and Brooke Willis Property has since 25 Feb 2024. Both pay rent out weekly or fortnightly, less their fee and any repairs. These figures exclude the mortgage, insurance, rates and land tax.</p>
+    </div>
+    <div class="card">
+      <h3>Weekly rent history</h3>
+      <div class="steps">
+        <div class="step"><span class="d">Jul 2019</span><span class="r">$550</span><span class="n">first tenant</span></div>
+        <div class="step"><span class="d">Sep 2021</span><span class="r">$560</span><span class="n">+$10</span></div>
+        <div class="step"><span class="d">Apr 2022</span><span class="r">$590</span><span class="n">+$30</span></div>
+        <div class="step"><span class="d">Apr 2023</span><span class="r">$610</span><span class="n">+$20</span></div>
+        <div class="step"><span class="d">Sep 2023</span><span class="r">$620</span><span class="n">+$10</span></div>
+        <div class="step"><span class="d">Mar 2024</span><span class="r">$650</span><span class="n">new agent</span></div>
+        <div class="step"><span class="d">Jun 2024</span><span class="r">$725</span><span class="n">new tenant</span></div>
+        <div class="step"><span class="d">May 2025</span><span class="r">$735</span><span class="n">+$10</span></div>
+        <div class="step"><span class="d">Jun 2026</span><span class="r">$750</span><span class="n">+$15 · current</span></div>
+      </div>
+    </div>
+    <div class="cards-2">
+      <div class="card">
+        <h3>Where the rent went, by financial year</h3>
+        <div class="legend" id="lgN"></div>
+        <div class="chart-box" id="chartN"></div>
+        <p class="note">FY2019 is June 2019 only. FY2024 combines Property Zest to 1 Mar 2024 (folio summary) with Brooke Willis from 8 Mar 2024. FY2025 onwards is summed from the weekly Brooke Willis statements. FY2027 runs to the 2 Oct 2026 statement.</p>
+      </div>
+      <div class="card">
+        <h3>Money in and out</h3>
+        <div class="scroll"><table id="tblN"></table></div>
+        <p class="note">Money in is rent plus water recharged to the tenant. Money out is the management fee, letting or lease fees and repairs. Larger repair bills: $3.6K in Mar 2025 (air-conditioning and plumbing), $1.5K in Oct 2025, and $2.0K plus $0.8K in Sep 2026 (the $0.8K was for rotten backyard step treads).</p>
       </div>
     </div>
   </section>
@@ -247,7 +325,7 @@
         <h3>Operating net cash flow by FY</h3>
         <div class="legend" id="lgB"></div>
         <div class="chart-box" id="chartB"></div>
-        <p class="note">FY2025–26 positives are overstated: mortgage payments unlogged since Dec 2024 / Jan 2025.</p>
+        <p class="note">Still taken from the spreadsheet. FY2025–26 positives are overstated because mortgage payments are unlogged since Dec 2024 / Jan 2025. Gardenia's FY2026 rent in the sheet ($24.3K) is about $9.3K below what the agent actually collected ($33.7K), so its true figure is somewhat higher before repayments.</p>
         <details class="tbl"><summary>View data</summary><div class="scroll"><table>
           <thead><tr><th>Property</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026</th></tr></thead>
           <tbody>
@@ -281,7 +359,7 @@
   <section>
     <div class="sec-head">
       <h2>Rent collected by financial year</h2>
-      <p>Rent logged across the whole portfolio's history (Jul–Jun financial years). The FY2024 peak reflects eight tenanted properties before the 2024–25 sales and transfers. Novak's rent is missing from every year (#REF!), and FY2026 is a part-year: rent unlogged since Feb–Mar 2026.</p>
+      <p>Rent across the whole portfolio's history (Jul–Jun financial years). Gardenia and Novak use the agents' statements and folio summaries; the other properties still use the spreadsheet. The FY2024 peak reflects nine tenanted properties before the 2024–25 sales and transfers. Furness and Wacol are part-year for FY2026.</p>
     </div>
     <div class="card">
       <div class="legend" id="lgC"></div>
@@ -311,22 +389,22 @@
 
   <section>
     <div class="sec-head">
-      <h2>Data health — from the spreadsheet's own checklist</h2>
-      <p>19 open items on the CHECKS tab. The ones that most affect the numbers above:</p>
+      <h2>Data health</h2>
+      <p>From the spreadsheet's CHECKS tab, adjusted for the new Gardenia statements.</p>
     </div>
     <div class="card">
       <ul class="checks">
         <li><strong>Portfolio-wide:</strong> bank-side logging (mortgage, insurance) stopped ~Jan 2025 across Novak, Gardenia and Furness — the checklist suggests a routine to import bank statements. Until then, FY2025–26 cash flow is overstated by roughly $130K+ of unlogged repayments.</li>
-        <li><strong>21 Novak St:</strong> ledger formulas broken (#REF!); ~17 months of mortgage repayments (est. $60–70K), insurance since Jan 2025 (est. $1,300), and ~15 weeks of rent (~$11K) all missing. Land tax 2024–26 unconfirmed.</li>
-        <li><strong>20 Gardenia Cct:</strong> ~18 months of repayments (≈ $52K), insurance, and council/water since late 2024 to log; rent/PM unlogged since 16 Mar 2026.</li>
-        <li><strong>2 Furness Way:</strong> ~19 months of repayments (≈ $21K) and insurance to log; rent/PM unlogged since 19 Feb 2026.</li>
+        <li><strong>21 Novak St:</strong> rent and agent fees are now covered from Jul 2019 to 2 Oct 2026 by the agents' statements, with all 142 Brooke Willis statements on file. The spreadsheet ledger formulas are still broken (#REF!), and ~17 months of mortgage repayments (est. $60–70K), insurance since Jan 2025 (est. $1,300) and land tax 2024–26 are still to log.</li>
+        <li><strong>20 Gardenia Cct:</strong> rent and agent fees are now covered to 1 Oct 2026 from the agent's statements. Still to log: ~18 months of mortgage repayments (≈ $52K), insurance, and council/water. Statements #12 to #16 (Apr to early Jun 2026) are missing from the Rental Statements folder; their rent is included through the agent's FY2026 folio summary.</li>
+        <li><strong>2 Furness Way:</strong> ~19 months of repayments (≈ $21K) and insurance to log; rent/PM unlogged since 19 Feb 2026. The new lease ($700/wk, 4 Feb 2026 to 3 Feb 2027) is in the Lease folder; its dates and rent are taken from the file name and agent email because the PDF's filled-in fields can't be read automatically.</li>
         <li><strong>Wacol Unit 8:</strong> ledger has only 5 pre-purchase entries — settlement costs, mortgage, body corporate, insurance, rates and rent since Feb 2026 all still to be built out.</li>
       </ul>
     </div>
   </section>
 
   <footer>
-    Built from <strong>A__Property_Overview_Updated 03.07.26.xlsx</strong> · Overview (after Mat), per-property ledger tabs, ledger reconciliation and checks. Valuations dated 19 Jan 2026; “est.” figures combine sheet values with the checklist's stated loan estimates. Financial years run July–June.
+    Built from <strong>A__Property_Overview_Updated 03.07.26.xlsx</strong> (Overview, per-property ledger tabs, reconciliation and checks) plus Property Zest statements and folio summaries for 20 Gardenia Cct (OWN01080, OWN02296) and 21 Novak St (OWN00654, #1–#113), plus Brooke Willis Property ownership statements #1–#142 for Novak. Valuations dated 19 Jan 2026; “est.” figures combine sheet values with the checklist's stated loan estimates. Financial years run July–June.
   </footer>
 </div>
 
@@ -346,7 +424,7 @@
   }
   function fmtMoney(v) {
     var sign = v < 0 ? '−' : '';
-    return sign + '$' + Math.abs(v).toLocaleString('en-AU');
+    return sign + '$' + Math.round(Math.abs(v)).toLocaleString('en-AU');
   }
   function fmtK(v) {
     var sign = v < 0 ? '−' : '';
@@ -396,7 +474,7 @@
       { name: 'Novak', full: '21 Novak St, Everton Park QLD', p: 592000, v: 1290000 },
       { name: 'Gardenia', full: '20 Gardenia Cct, Dakabin QLD', p: 525000, v: 918000 },
       { name: 'Furness', full: '2 Furness Way, Wellard WA', p: 480000, v: 874000 },
-      { name: 'Wacol', full: 'Unit 8/72 Metroplex Ave, Wacol QLD', p: 810000, v: null }
+      { name: 'Wacol', full: 'Unit 8/72 Metroplex Pl, Wacol QLD', p: 810000, v: 810000 }
     ];
     var W = Math.max(box.clientWidth || 480, 420), H = 260;
     var m = { t: 18, r: 8, b: 26, l: 46 };
@@ -528,10 +606,11 @@
     var years = ['FY2020', 'FY2021', 'FY2022', 'FY2023', 'FY2024', 'FY2025', 'FY2026'];
     // Stack (and slot) order = settlement order.
     var series = [
+      { name: '21 Novak St', slot: '--s9', vals: [29235, 28122.5, 28868.21, 30940, 32519, 37750, 38280] },
       { name: '1 Saffron Ave', slot: '--s1', vals: [19440, 28376, 28990, 30170, 33701, 9193, 0] },
       { name: '15 Navua St', slot: '--s2', vals: [13760, 22330, 23340, 23720, 28209, 30175, 9447] },
       { name: '59 Whatley St', slot: '--s3', vals: [3910, 24070, 27120, 27250, 24450, 0, 0] },
-      { name: '20 Gardenia Cct', slot: '--s4', vals: [0, 0, 14837, 24900, 28350, 30982, 24320] },
+      { name: '20 Gardenia Cct', slot: '--s4', vals: [0, 0, 15317, 25420, 28550, 29762, 33661] },
       { name: '6 Lochore Ct', slot: '--s5', vals: [0, 0, 13120, 21103, 26632, 16532, 0] },
       { name: '184 Lawes St', slot: '--s6', vals: [0, 0, 0, 29279, 45095, 31369, 0] },
       { name: '2 Furness Way', slot: '--s7', vals: [0, 0, 0, 4320, 29175, 34360, 23460] },
@@ -544,7 +623,7 @@
     var W = Math.max(box.clientWidth || 900, 640), H = 320;
     var m = { t: 24, r: 8, b: 26, l: 50 };
     var pw = W - m.l - m.r, ph = H - m.t - m.b;
-    var maxV = 240000;
+    var maxV = 280000;
     var y = function (v) { return m.t + ph - (v / maxV) * ph; };
     var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Stacked column chart of rent collected per financial year by property' }, box);
 
@@ -568,7 +647,7 @@
         var y0 = y(acc), y1 = y(acc + v);
         var top = y1, hRaw = y0 - y1;
         var isTop = si === segs.length - 1;
-        var gap = si > 0 ? 1 : 0; // 2px total between segments (1 each side)
+        var gap = si > 0 ? 1 : 0;
         var h = Math.max(hRaw - gap - (isTop ? 0 : 1), 1);
         if (isTop) {
           var r = Math.min(4, h / 2, barW / 2);
@@ -601,7 +680,6 @@
 
     legend('lgC', series.map(function (s) { return { label: s.name, color: s.color }; }));
 
-    // table view
     var tbl = document.getElementById('tblC');
     var head = '<thead><tr><th>Property</th>' + years.map(function (yr) { return '<th class="num">' + yr + '</th>'; }).join('') + '</tr></thead>';
     var body = series.map(function (s) {
@@ -613,7 +691,75 @@
     tbl.innerHTML = head + '<tbody>' + body + '</tbody>';
   }
 
-  function drawAll() { chartA(); chartB(); chartC(); }
+  // ---------- Agent statement charts: money in split into paid to owner and agent fees/expenses ----------
+  var gd = [
+    { yr: 'FY2022', rent: 15317.30, inn: 15406.95, out: 2022.58, net: 13384.37 },
+    { yr: 'FY2023', rent: 25420.18, inn: 25860.62, out: 2645.50, net: 23215.12 },
+    { yr: 'FY2024', rent: 28550.00, inn: 29170.56, out: 3439.08, net: 25731.48 },
+    { yr: 'FY2025', rent: 29761.84, inn: 31615.17, out: 3299.42, net: 28315.75 },
+    { yr: 'FY2026', rent: 33661.21, inn: 34182.00, out: 5598.40, net: 28583.60 },
+    { yr: 'FY2027 YTD', rent: 10550.53, inn: 10727.00, out: 1028.45, net: 9698.55 }
+  ];
+  var nd = [
+    { yr: 'FY2019', rent: 1100.00, inn: 1100.00, out: 93.51, net: 1006.49 },
+    { yr: 'FY2020', rent: 29235.00, inn: 29857.50, out: 4438.45, net: 25419.05 },
+    { yr: 'FY2021', rent: 28122.50, inn: 28725.63, out: 5455.27, net: 23270.36 },
+    { yr: 'FY2022', rent: 28868.21, inn: 29958.85, out: 5349.00, net: 24609.85 },
+    { yr: 'FY2023', rent: 30940.00, inn: 31430.21, out: 2613.90, net: 28816.31 },
+    { yr: 'FY2024', rent: 32518.59, inn: 33093.86, out: 5095.78, net: 27998.08 },
+    { yr: 'FY2025', rent: 37750.00, inn: 38314.56, out: 6861.99, net: 31452.57 },
+    { yr: 'FY2026', rent: 38280.00, inn: 38773.29, out: 6122.89, net: 32650.40 },
+    { yr: 'FY2027 YTD', rent: 10500.00, inn: 10500.00, out: 3583.50, net: 6916.50 }
+  ];
+  function agentChart(data, ids, maxV, name) {
+    var box = document.getElementById(ids.chart);
+    box.innerHTML = '';
+    var W = Math.max(box.clientWidth || 480, 420), H = 280;
+    var m = { t: 22, r: 8, b: 26, l: 46 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var y = function (v) { return m.t + ph - (v / maxV) * ph; };
+    var cNet = css('--ramp-hi'), cOut = css('--s2');
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Stacked column chart of ' + name + ' money in per financial year, split into amount paid to owner and agent fees and expenses' }, box);
+    niceTicks(maxV, 4).forEach(function (t) {
+      el('line', { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), stroke: t === 0 ? css('--baseline') : css('--grid'), 'stroke-width': 1 }, svg);
+      if (t > 0) {
+        var lb = el('text', { x: m.l - 6, y: y(t) + 3.5, 'text-anchor': 'end', fill: css('--muted'), 'font-size': 11, style: 'font-variant-numeric: tabular-nums' }, svg);
+        lb.textContent = fmtK(t);
+      }
+    });
+    var band = pw / data.length, barW = Math.min(30, band * 0.5);
+    var small = data.length > 7;
+    data.forEach(function (d, i) {
+      var tot = d.net + d.out;
+      var cx = m.l + band * i + band / 2, x = cx - barW / 2;
+      var hN = Math.max(y(0) - y(d.net), 1), hO = Math.max(y(0) - y(d.out), 2);
+      el('rect', { x: x, y: y(d.net), width: barW, height: hN, fill: cNet }, svg);
+      var r = Math.min(4, hO / 2, barW / 2), top = y(tot);
+      el('path', { d: 'M' + x + ',' + (top + hO - 1) + ' v' + (-(hO - 1 - r)) + ' q0,-' + r + ' ' + r + ',-' + r + ' h' + (barW - 2 * r) + ' q' + r + ',0 ' + r + ',' + r + ' v' + (hO - 1 - r) + ' z', fill: cOut }, svg);
+      var lab = el('text', { x: cx, y: top - 6, 'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': small ? 10 : 11, 'font-weight': 600 }, svg);
+      lab.textContent = fmtK(tot);
+      var xl = el('text', { x: cx, y: H - 8, 'text-anchor': 'middle', fill: css('--ink-2'), 'font-size': small ? 9.5 : (d.yr.length > 6 ? 10.5 : 11.5) }, svg);
+      xl.textContent = small ? d.yr.replace('FY20', '') : d.yr;
+      var hit = el('rect', { x: m.l + band * i, y: m.t, width: band, height: ph, fill: 'transparent' }, svg);
+      hit.addEventListener('mousemove', function (e) {
+        showTip('<div class="t-title">' + d.yr + ' · money in ' + fmtMoney(tot) + '</div>' +
+          '<div class="t-row"><span class="k"><span class="sw" style="background:' + cNet + '"></span>Paid to you</span><span class="v">' + fmtMoney(d.net) + '</span></div>' +
+          '<div class="t-row"><span class="k"><span class="sw" style="background:' + cOut + '"></span>Fees &amp; expenses</span><span class="v">' + fmtMoney(d.out) + '</span></div>' +
+          '<div class="t-row"><span class="k">Fees as share</span><span class="v">' + (d.out / tot * 100).toFixed(1) + '%</span></div>', e.clientX, e.clientY);
+      });
+      hit.addEventListener('mouseleave', hideTip);
+    });
+    legend(ids.legend, [{ label: 'Paid to you', color: cNet }, { label: 'Agent fees & expenses', color: cOut }]);
+
+    document.getElementById(ids.table).innerHTML = '<thead><tr><th>Year</th><th class="num">Rent</th><th class="num">Other in</th><th class="num">Out</th><th class="num">Paid to you</th></tr></thead><tbody>' +
+      data.map(function (d) {
+        return '<tr><td>' + d.yr + '</td><td class="num">' + fmtMoney(d.rent) + '</td><td class="num">' + fmtMoney(d.inn - d.rent) + '</td><td class="num">' + fmtMoney(d.out) + '</td><td class="num pos">' + fmtMoney(d.net) + '</td></tr>';
+      }).join('') + '</tbody>';
+  }
+  function chartD() { agentChart(gd, { chart: 'chartD', legend: 'lgD', table: 'tblD' }, 40000, 'Gardenia'); }
+  function chartN() { agentChart(nd, { chart: 'chartN', legend: 'lgN', table: 'tblN' }, 40000, 'Novak'); }
+
+  function drawAll() { chartA(); chartB(); chartC(); chartD(); chartN(); }
   drawAll();
 
   var rt;
@@ -621,10 +767,11 @@
     clearTimeout(rt);
     rt = setTimeout(drawAll, 150);
   });
-  // Redraw when the artifact viewer toggles theme (colors are read at draw time).
   new MutationObserver(drawAll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   if (window.matchMedia) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawAll);
   }
 })();
 </script>
+
+</body></html>
