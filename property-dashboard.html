@@ -177,6 +177,7 @@
     <p class="src">Source: <code>A__Property_Overview_Updated 03.07.26.xlsx</code> — ledger data as at 3 Jul 2026, valuations as at 19 Jan 2026.</p>
     <p class="src">Updated 5 Oct 2026 with the agents' statements for <strong>20 Gardenia Cct, Dakabin</strong> (to 1 Oct 2026) and <strong>21 Novak St, Everton Park</strong> (Jul 2019 to 2 Oct 2026).</p>
     <p class="src">Updated 28 Oct 2026: <strong>Gardenia lease renewal</strong> — current lease runs to 31 Jan 2027 at $670/wk; PM recommends $720–730/wk (CMA) and a $730/wk 12-month renewal is being offered from February 2027.</p>
+    <p class="src">Valuations updated 28 Oct 2026 — realestate.com.au high estimates (supplied by Beidi): Novak $1.35M · Gardenia $960K · Furness $920K.</p>
   </header>
 
   <div class="banner">
@@ -187,13 +188,13 @@
   <div class="tiles">
     <div class="tile hero">
       <span class="lbl">Portfolio value — latest on record</span>
-      <span class="val">$3.89M</span>
-      <span class="sub">houses at 19.1.26 valuations + Wacol $810K bank val · refreshes monthly from realestate.com.au highs (next: 1 Nov 26)</span>
+      <span class="val">$4.04M</span>
+      <span class="sub">houses at 28.10.26 realestate.com.au high estimates + Wacol $810K bank val · refreshes monthly (next: 1 Nov 26)</span>
     </div>
     <div class="tile">
       <span class="lbl">Growth on current holdings</span>
-      <span class="val delta-up">+$1.49M</span>
-      <span class="sub">+93% vs $1.60M purchase (3 residential)</span>
+      <span class="val delta-up">+$1.63M</span>
+      <span class="sub">+102% vs $1.60M purchase (3 residential, 28.10.26 estimates)</span>
     </div>
     <div class="tile">
       <span class="lbl">Gross rent</span>
@@ -203,12 +204,12 @@
     <div class="tile">
       <span class="lbl">Est. debt → equity</span>
       <span class="val">$2.36M</span>
-      <span class="sub">→ ≈ $1.53M equity · bank balances 28.10.26 + Wacol $460K</span>
+      <span class="sub">→ ≈ $1.68M equity · bank balances 28.10.26 + Wacol $460K</span>
     </div>
     <div class="tile">
       <span class="lbl">Portfolio LVR</span>
-      <span class="val">60.8%</span>
-      <span class="sub">$2.36M debt ÷ $3.89M value · per property 56–65%</span>
+      <span class="val">58.5%</span>
+      <span class="sub">$2.36M debt ÷ $4.04M value · per property 53–62%</span>
     </div>
     <div class="tile">
       <span class="lbl">Properties</span>
@@ -227,15 +228,15 @@
         <h3>Purchase price vs current value</h3>
         <div class="legend" id="lgA"></div>
         <div class="chart-box" id="chartA"></div>
-        <p class="note">Wacol is shown at its bank valuation of $810,000 (Valocity, 7 Jan 2026), the same as the purchase price. The three houses are at 19 Jan 2026 valuations.</p>
+        <p class="note">Wacol is shown at its bank valuation of $810,000 (Valocity, 7 Jan 2026), the same as the purchase price. The three houses are at 28 Oct 2026 realestate.com.au high estimates.</p>
         <details class="tbl"><summary>View data</summary><div class="scroll"><table>
-          <thead><tr><th>Property</th><th class="num">Purchase</th><th class="num">Value (19.1.26)</th><th class="num">Change</th></tr></thead>
+          <thead><tr><th>Property</th><th class="num">Purchase</th><th class="num">Value (28.10.26)</th><th class="num">Change</th></tr></thead>
           <tbody>
-            <tr><td>21 Novak St, Everton Park QLD</td><td class="num">$592,000</td><td class="num">$1,290,000</td><td class="num pos">+118%</td></tr>
-            <tr><td>20 Gardenia Cct, Dakabin QLD</td><td class="num">$525,000</td><td class="num">$918,000</td><td class="num pos">+75%</td></tr>
-            <tr><td>2 Furness Way, Wellard WA</td><td class="num">$480,000</td><td class="num">$874,000</td><td class="num pos">+82%</td></tr>
+            <tr><td>21 Novak St, Everton Park QLD</td><td class="num">$592,000</td><td class="num">$1,350,000</td><td class="num pos">+128%</td></tr>
+            <tr><td>20 Gardenia Cct, Dakabin QLD</td><td class="num">$525,000</td><td class="num">$960,000</td><td class="num pos">+83%</td></tr>
+            <tr><td>2 Furness Way, Wellard WA</td><td class="num">$480,000</td><td class="num">$920,000</td><td class="num pos">+92%</td></tr>
             <tr><td>Unit 8/72 Metroplex Pl, Wacol QLD</td><td class="num">$810,000</td><td class="num">$810,000</td><td class="num">0%</td></tr>
-            <tr class="total"><td>Total</td><td class="num">$2,407,000</td><td class="num">$3,892,000</td><td class="num"></td></tr>
+            <tr class="total"><td>Total</td><td class="num">$2,407,000</td><td class="num">$4,040,000</td><td class="num"></td></tr>
           </tbody>
         </table></div></details>
       </div>
@@ -488,9 +489,9 @@
     var box = document.getElementById('chartA');
     box.innerHTML = '';
     var data = [
-      { name: 'Novak', full: '21 Novak St, Everton Park QLD', p: 592000, v: 1290000 },
-      { name: 'Gardenia', full: '20 Gardenia Cct, Dakabin QLD', p: 525000, v: 918000 },
-      { name: 'Furness', full: '2 Furness Way, Wellard WA', p: 480000, v: 874000 },
+      { name: 'Novak', full: '21 Novak St, Everton Park QLD', p: 592000, v: 1350000 },
+      { name: 'Gardenia', full: '20 Gardenia Cct, Dakabin QLD', p: 525000, v: 960000 },
+      { name: 'Furness', full: '2 Furness Way, Wellard WA', p: 480000, v: 920000 },
       { name: 'Wacol', full: 'Unit 8/72 Metroplex Pl, Wacol QLD', p: 810000, v: 810000 }
     ];
     var W = Math.max(box.clientWidth || 480, 420), H = 260;
@@ -539,7 +540,7 @@
       hit.addEventListener('mousemove', function (e) {
         var rows = '<div class="t-row"><span class="k"><span class="sw" style="background:' + cols.p + '"></span>Purchase</span><span class="v">' + fmtMoney(d.p) + '</span></div>';
         if (d.v != null) {
-          rows += '<div class="t-row"><span class="k"><span class="sw" style="background:' + cols.v + '"></span>Value 19.1.26</span><span class="v">' + fmtMoney(d.v) + '</span></div>';
+          rows += '<div class="t-row"><span class="k"><span class="sw" style="background:' + cols.v + '"></span>Latest value</span><span class="v">' + fmtMoney(d.v) + '</span></div>';
           rows += '<div class="t-row"><span class="k">Change</span><span class="v">+' + Math.round((d.v / d.p - 1) * 100) + '%</span></div>';
         } else {
           rows += '<div class="t-row"><span class="k">Value</span><span class="v">not yet valued</span></div>';
@@ -550,7 +551,7 @@
     });
     legend('lgA', [
       { label: 'Purchase price', color: cols.p },
-      { label: 'Current value (19.1.26)', color: cols.v }
+      { label: 'Latest value (28.10.26)', color: cols.v }
     ]);
   }
 
@@ -780,13 +781,16 @@
   var VH = [
     { name: '21 Novak St', slot: '--s9', pts: [
       { d: '2019-06-10', v: 592000, src: 'Purchase' },
-      { d: '2026-01-19', v: 1290000, src: 'Valuation (19.1.26)' } ] },
+      { d: '2026-01-19', v: 1290000, src: 'Valuation (19.1.26)' },
+      { d: '2026-10-28', v: 1350000, src: 'realestate.com.au high (app)' } ] },
     { name: '20 Gardenia Cct', slot: '--s4', pts: [
       { d: '2021-11-12', v: 525000, src: 'Purchase' },
-      { d: '2026-01-19', v: 918000, src: 'Valuation (19.1.26)' } ] },
+      { d: '2026-01-19', v: 918000, src: 'Valuation (19.1.26)' },
+      { d: '2026-10-28', v: 960000, src: 'realestate.com.au high (app)' } ] },
     { name: '2 Furness Way', slot: '--s7', pts: [
       { d: '2023-05-02', v: 480000, src: 'Purchase' },
-      { d: '2026-01-19', v: 874000, src: 'Valuation (19.1.26)' } ] },
+      { d: '2026-01-19', v: 874000, src: 'Valuation (19.1.26)' },
+      { d: '2026-10-28', v: 920000, src: 'realestate.com.au high (app)' } ] },
     { name: 'Wacol Unit 8', slot: '--s8', pts: [
       { d: '2026-01-07', v: 810000, src: 'Valocity bank valuation (purchase)' } ] }
   ];
